@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:toddle_bee_app/Provider/favorite_provider.dart';
+import 'package:toddle_bee_app/Provider/favoriteshow_provider.dart';
 import 'package:toddle_bee_app/Provider/provider.dart';
-import 'package:toddle_bee_app/Screens/home_screen.dart';
+import 'package:toddle_bee_app/Screens/splash_screen.dart';
 
 void main() {
-   runApp(
-    ChangeNotifierProvider(
-      create: (context) => UserDataProvider(),
-      child: const MyApp(),
-    ),
-  );
- 
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (context) => UserDataProvider(),
+      ),
+       ChangeNotifierProvider(
+        create: (context) => FavoriteProvider(),
+      ),
+
+      ChangeNotifierProvider(create: (context)=> FavoriteshowProvider())
+      // ChangeNotifierProvider(create: (_) => AuthProvider()),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -18,10 +27,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  const MaterialApp(
-      
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:HomeScreen(),
+      home: SplashScreen(),
       title: "Toddle Bee",
     );
   }

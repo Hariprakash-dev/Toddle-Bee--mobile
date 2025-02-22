@@ -12,13 +12,21 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
- 
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
+
   @override
   void initState() {
     super.initState();
+    // WidgetsBinding.instance.addPostFrameCallback((t) {
+    //   // UserDataProvider().fetchUserData();
+    // });
     Timer(
         const Duration(seconds: 5),
-        () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>const LoginScreen())) );
+        () => Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const LoginScreen())));
   }
 
   @override

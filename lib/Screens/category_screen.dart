@@ -77,7 +77,7 @@ class CategoryScreen extends StatelessWidget {
                 height: 10,
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 12, right: 12),
+                padding: const EdgeInsets.only(left: 12, right: 12,bottom: 12),
                 child: GridView.builder(
                     itemCount: products.length,
                     physics: const NeverScrollableScrollPhysics(),
@@ -85,7 +85,7 @@ class CategoryScreen extends StatelessWidget {
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
-                            mainAxisExtent: 190,
+                            mainAxisExtent: 210,
                             mainAxisSpacing: 10,
                             crossAxisSpacing: 10),
                     itemBuilder: (BuildContext context, index) {
@@ -110,29 +110,18 @@ class CategoryScreen extends StatelessWidget {
                                       ),
                                       child: Padding(
                                         padding: const EdgeInsets.all(5.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                        child: Stack(
+                                          alignment: Alignment.topRight,
                                           children: [
-                                            Column(
-                                              children: [
-                                                Image.asset(
-                                                  products[index].product,
-                                                  height: 100,
-                                                  width: 100,
-                                                ),
-                                              ],
+                                            Image.asset(
+                                              products[index].product,
+                                              height: 100,
+                                              width: 115,
                                             ),
-                                            const Column(
-                                              children: [
-                                               
-                                                Icon(
-                                                  Icons.favorite_border,
-                                                  size: 15,
-                                                ),
-                                              ],
-                                            ),
+                                             const Icon(
+                                              Icons.favorite_border,
+                                              size: 15,
+                                                                                             ),
                                           ],
                                         ),
                                       )),

@@ -1,58 +1,70 @@
 // To parse this JSON data, do
 //
-//     final fetchUserData = fetchUserDataFromJson(jsonString);
+//     final welcome = welcomeFromJson(jsonString);
 
 import 'dart:convert';
 
-FetchUserData fetchUserDataFromJson(String str) => FetchUserData.fromJson(json.decode(str));
+Welcome welcomeFromJson(String str) => Welcome.fromJson(json.decode(str));
 
-String fetchUserDataToJson(FetchUserData data) => json.encode(data.toJson());
+String welcomeToJson(Welcome data) => json.encode(data.toJson());
 
-class FetchUserData {
+class Welcome {
     bool status;
-    Data data;
+    List<Datum> data;
 
-    FetchUserData({
+    Welcome({
         required this.status,
         required this.data,
     });
 
-    factory FetchUserData.fromJson(Map<String, dynamic> json) => FetchUserData(
+    factory Welcome.fromJson(Map<String, dynamic> json) => Welcome(
         status: json["status"],
-        data: Data.fromJson(json["data"]),
+        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
         "status": status,
-        "data": data.toJson(),
-    };
-}
-
-class Data {
-    List<Datum> data;
-    List<dynamic> button;
-    List<dynamic> related;
-
-    Data({
-        required this.data,
-        required this.button,
-        required this.related,
-    });
-
-    factory Data.fromJson(Map<String, dynamic> json) => Data(
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-        button: List<dynamic>.from(json["button"].map((x) => x)),
-        related: List<dynamic>.from(json["related"].map((x) => x)),
-    );
-
-    Map<String, dynamic> toJson() => {
-        "data": List<dynamic>.from(data  .map((x) => x.toJson())),
-        "button": List<dynamic>.from(button.map((x) => x)),
-        "related": List<dynamic>.from(related.map((x) => x)),
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
     };
 }
 
 class Datum {
+    int id;
+    int userId;
+    int productId;
+    DateTime createdAt;
+    DateTime updatedAt;
+    Product product;
+
+    Datum({
+        required this.id,
+        required this.userId,
+        required this.productId,
+        required this.createdAt,
+        required this.updatedAt,
+        required this.product,
+    });
+
+    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+        id: json["id"],
+        userId: json["user_id"],
+        productId: json["product_id"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+        product: Product.fromJson(json["product"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "user_id": userId,
+        "product_id": productId,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+        "product": product.toJson(),
+    };
+}
+
+class Product {
     int id;
     String productName;
     int categoryId;
@@ -64,16 +76,17 @@ class Datum {
     String productDetail;
     String certification;
     int status;
-    String? metaTitle;
-    String? metaDescription;
-    String? metaKeywords;
+    dynamic metaTitle;
+    dynamic metaDescription;
+    dynamic metaKeywords;
     dynamic deletedAt;
     DateTime createdAt;
     DateTime updatedAt;
-    List<SkuTable> skuTable;
+    Category category;
     List<Images> images;
+    List<SkuTable> skuTable;
 
-    Datum({
+    Product({
         required this.id,
         required this.productName,
         required this.categoryId,
@@ -91,11 +104,12 @@ class Datum {
         required this.deletedAt,
         required this.createdAt,
         required this.updatedAt,
-        required this.skuTable,
+        required this.category,
         required this.images,
+        required this.skuTable,
     });
 
-    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+    factory Product.fromJson(Map<String, dynamic> json) => Product(
         id: json["id"],
         productName: json["product_name"],
         categoryId: json["category_id"],
@@ -113,8 +127,9 @@ class Datum {
         deletedAt: json["deleted_at"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        skuTable: List<SkuTable>.from(json["sku_table"].map((x) => SkuTable.fromJson(x))),
+        category: Category.fromJson(json["category"]),
         images: List<Images>.from(json["images"].map((x) => Images.fromJson(x))),
+        skuTable: List<SkuTable>.from(json["sku_table"].map((x) => SkuTable.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
@@ -135,8 +150,29 @@ class Datum {
         "deleted_at": deletedAt,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
-        "sku_table": List<dynamic>.from(skuTable.map((x) => x.toJson())),
+        "category": category.toJson(),
         "images": List<dynamic>.from(images.map((x) => x.toJson())),
+        "sku_table": List<dynamic>.from(skuTable.map((x) => x.toJson())),
+    };
+}
+
+class Category {
+    int id;
+    String categoryName;
+
+    Category({
+        required this.id,
+        required this.categoryName,
+    });
+
+    factory Category.fromJson(Map<String, dynamic> json) => Category(
+        id: json["id"],
+        categoryName: json["category_name"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "category_name": categoryName,
     };
 }
 
@@ -180,7 +216,7 @@ class SkuTable {
     int price;
     int discountPrice;
     int ratings;
-    Ages ages;
+    String ages;
     DateTime createdAt;
     DateTime updatedAt;
 
@@ -205,7 +241,7 @@ class SkuTable {
         price: json["price"],
         discountPrice: json["discount_price"],
         ratings: json["ratings"],
-        ages: agesValues.map[json["ages"]]!,
+        ages: json["ages"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
     );
@@ -218,135 +254,8 @@ class SkuTable {
         "price": price,
         "discount_price": discountPrice,
         "ratings": ratings,
-        "ages": agesValues.reverse[ages],
+        "ages": ages,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
     };
 }
-
-enum Ages {
-    FREE_SIZE,
-    THE_03_MONTHS,
-    THE_1218_MONTHS,
-    THE_1224_MONTHS,
-    THE_1824_MONTHS,
-    THE_36_MONTHS,
-    THE_612_MONTHS,
-    THE_69_MONTHS,
-    THE_912_MONTHS
-}
-
-final agesValues = EnumValues({
-    "Free Size": Ages.FREE_SIZE,
-    "0-3 Months": Ages.THE_03_MONTHS,
-    "12-18 Months": Ages.THE_1218_MONTHS,
-    "12-24 Months": Ages.THE_1224_MONTHS,
-    "18-24 Months": Ages.THE_1824_MONTHS,
-    "3-6 Months": Ages.THE_36_MONTHS,
-    "6-12 Months": Ages.THE_612_MONTHS,
-    "6-9 Months": Ages.THE_69_MONTHS,
-    "9-12 Months": Ages.THE_912_MONTHS
-});
-
-class EnumValues<T> {
-    Map<String, T> map;
-    late Map<T, String> reverseMap;
-
-    EnumValues(this.map);
-
-    Map<T, String> get reverse {
-            reverseMap = map.map((k, v) => MapEntry(v, k));
-            return reverseMap;
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// To parse this JSON data, do
-//
-//     final fetchUserData = fetchUserDataFromJson(jsonString);
-
-// import 'dart:convert';
-
-// FetchUserData fetchUserDataFromJson(String str) => FetchUserData.fromJson(json.decode(str));
-
-// String fetchUserDataToJson(FetchUserData data) => json.encode(data.toJson());
-
-// class FetchUserData {
-//     bool status;
-//     List<Datum> data;
-
-//     FetchUserData({
-//         required this.status,
-//         required this.data,
-//     });
-
-//     factory FetchUserData.fromJson(Map<String, dynamic> json) => FetchUserData(
-//         status: json["status"],
-//         data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-//     );
-
-//     Map<String, dynamic> toJson() => {
-//         "status": status,
-//         "data": List<dynamic>.from(data.map((x) => x.toJson())),
-//     };
-// }
-
-// class Datum {
-//     int id;
-//     int typeId;
-//     String categoryName;
-//     String? thumbnail;
-//     int status;
-//     dynamic deletedAt;
-//     DateTime createdAt;
-//     DateTime updatedAt;
-
-//     Datum({
-//         required this.id,
-//         required this.typeId,
-//         required this.categoryName,
-//         required this.thumbnail,
-//         required this.status,
-//         required this.deletedAt,
-//         required this.createdAt,
-//         required this.updatedAt,
-//     });
-
-//     factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-//         id: json["id"],
-//         typeId: json["type_id"],
-//         categoryName: json["category_name"],
-//         thumbnail: json["thumbnail"],
-//         status: json["status"],
-//         deletedAt: json["deleted_at"],
-//         createdAt: DateTime.parse(json["created_at"]),
-//         updatedAt: DateTime.parse(json["updated_at"]),
-//     );
-
-//     Map<String, dynamic> toJson() => { 
-//         "id": id,
-//         "type_id": typeId,
-//         "category_name": categoryName,
-//         "thumbnail": thumbnail,
-//         "status": status,
-//         "deleted_at": deletedAt,
-//         "created_at": createdAt.toIso8601String(),
-//         "updated_at": updatedAt.toIso8601String(),
-//     };
-// }
