@@ -1,25 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
-import 'package:toddle_bee_app/Provider/favorite_provider.dart';
-import 'package:toddle_bee_app/Provider/favoriteshow_provider.dart';
-import 'package:toddle_bee_app/Provider/provider.dart';
+import 'package:toddle_bee_app/Provider/all_provider.dart';
 import 'package:toddle_bee_app/Screens/splash_screen.dart';
+import 'package:toddle_bee_app/Service/navigationservice.dart';
+import 'package:toddle_bee_app/constants/keys.dart';
 
 void main() {
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(
-        create: (context) => UserDataProvider(),
-      ),
-       ChangeNotifierProvider(
-        create: (context) => FavoriteProvider(),
-      ),
-
-      ChangeNotifierProvider(create: (context)=> FavoriteshowProvider())
-      // ChangeNotifierProvider(create: (_) => AuthProvider()),
-    ],
-    child: const MyApp(),
-  ));
+  runApp(
+    MultiProvider(
+      providers: providersAll,
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -27,9 +20,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return GetMaterialApp(
+      key: materialKey,
+      navigatorKey: NavigationService.instance.navigationKey,
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: const SplashScreen(),
       title: "Toddle Bee",
     );
   }

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:toddle_bee_app/Colors/colors.dart';
+import 'package:toddle_bee_app/Provider/all_provider.dart';
 import 'package:toddle_bee_app/Screens/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -12,21 +13,15 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  // }
+  
 
   @override
-  void initState() {
+ void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Future.delayed(
+          const Duration(milliseconds: 1500), () => provdAuth.restoreSplash());
+    });
     super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((t) {
-    //   // UserDataProvider().fetchUserData();
-    // });
-    Timer(
-        const Duration(seconds: 5),
-        () => Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const LoginScreen())));
   }
 
   @override

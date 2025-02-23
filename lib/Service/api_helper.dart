@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 // ignore: implementation_imports
 import 'package:http/src/response.dart';
-import 'package:toddle_bee_app/Provider/auth_provider.dart';
+import 'package:toddle_bee_app/Provider/all_provider.dart';
 
 import 'notification.dart';
 
@@ -25,10 +25,6 @@ class ApiHelper {
       }
       if (response.statusCode == 401 || response.statusCode == 403) {
         provdAuth.authLoadingOff();
-        // notif('Failed', message['message']);
-        // return Get.offUntil(
-        //     MaterialPageRoute(builder: (context) => const LoginScr een()),
-        //     (route) => false);
       }
       if (response.statusCode == 404) {
         return;

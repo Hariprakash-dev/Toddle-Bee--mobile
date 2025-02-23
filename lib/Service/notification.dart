@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:toddle_bee_app/Provider/theme_provider.dart';
+import 'package:toddle_bee_app/Utils/context.dart';
+import 'package:toddle_bee_app/cofig/enums.dart';
+
 
 notif(String head, String desc) => Get.snackbar(head, desc,
     margin: EdgeInsets.only(
@@ -15,17 +19,17 @@ notif(String head, String desc) => Get.snackbar(head, desc,
     dismissDirection: DismissDirection.horizontal,
     animationDuration: const Duration(milliseconds: 600));
 
-// errorMessage(String head, String desc) {
-//   return showOverlayNotification((context) {
-//     return AllNotifications(
-//       message: desc,
-//       color: Colors.red,
-//       icon: Icons.error,
-//       head: head,
-//       onReply: () => OverlaySupportEntry.of(context)?.dismiss(),
-//     );
-//   });
-// }
+errorMessage(String head, String desc) {
+  return showOverlayNotification((context) {
+    return AllNotifications(
+      message: desc,
+      color: Colors.red,
+      icon: Icons.error,
+      head: head,
+      onReply: () => OverlaySupportEntry.of(context)?.dismiss(),
+    );
+  });
+}
 
 successMessage(String desc) {
   return showOverlayNotification(duration: const Duration(seconds: 2),
@@ -150,18 +154,11 @@ class AllNotifications extends StatelessWidget {
                   bottomLeft: Radius.circular(16),
                   bottomRight: Radius.circular(16))),
           tileColor: color,
-          // leading: SizedBox.fromSize(
-          //     size: const Size(40, 40), child: ClipOval(child: Icon(icon, color: targetDetailColor.mutedLight, size: 40))),
-          title: (head),
-          subtitle: textMSG(message),
+         
+          title: Text(head),
+          subtitle: Text(message),
         ),
       ),
     );
   }
 }
-
-TextStyle styleMessage = GoogleFonts.poppins(
-    fontSize: 14,
-    fontWeight: FontWeight.w400,
-    color: targetDetailColor.pureWhite,
-    letterSpacing: 0.25);
