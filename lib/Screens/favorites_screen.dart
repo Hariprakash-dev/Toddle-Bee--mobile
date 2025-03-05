@@ -1,19 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:toddle_bee_app/Colors/colors.dart';
-import 'package:toddle_bee_app/Model/favoritemodel.dart';
+import 'package:toddle_bee_app/Provider/favorite_provider.dart';
 
-import 'package:toddle_bee_app/Provider/favoriteshow_provider.dart';
-
-class FavoritesScreen extends StatelessWidget {
+class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({super.key});
+
+  @override
+  State<FavoritesScreen> createState() => _FavoritesScreenState();
+}
+
+class _FavoritesScreenState extends State<FavoritesScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    // Call the favoriteList method when the screen loads
+    Future.microtask(() {
+      Provider.of<FavouriteProvider>(context, listen: false).favoriteList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColors.backgroundColor,
-        body: Consumer<FavoriteshowProvider>(
-          builder: (context, value, child) => Column(
+        body: Consumer<FavouriteProvider>(
+          builder: (context, fav, child) =>
+             
+              Column(
             children: [
               Container(
                 decoration: BoxDecoration(
@@ -73,11 +88,8 @@ class FavoritesScreen extends StatelessWidget {
               Expanded(
                 child: ListView.builder(
                     shrinkWrap: true,
-                    itemCount: value.favData!.data.length,
+                    itemCount: fav.favoriteData.length,
                     itemBuilder: (BuildContext context, int index) {
-                      Datum datum = value.favData!.data[index];
-                      print(datum.toJson());
-
                       return Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Container(
@@ -105,13 +117,15 @@ class FavoritesScreen extends StatelessWidget {
                                           225, 242, 255, 1),
                                       child: Padding(
                                         padding: const EdgeInsets.all(12.0),
-                                        child: datum.product.thumbnail.isEmpty
-                                            ? Text("null")
-                                            : Image.network(
-                                                "https://toddlebee.com/storage/product/${datum.product.thumbnail}",
-                                                height: 100,
-                                                width: 100,
-                                              ),
+                                        child: Image.network(
+                                            "https://toddlebee.com/storage/product/${fav.favoriteData[index]["product"]["thumbnail"]}"),
+                                        // child: datum.product.thumbnail.isEmpty
+                                        //     ? Text("null")
+                                        //     : Image.network(
+                                        //         "https://toddlebee.com/storage/product/${datum.product.thumbnail}",
+                                        //         height: 100,
+                                        //         width: 100,
+                                        //       ),
                                       ))
                                 ],
                               ),
@@ -122,27 +136,29 @@ class FavoritesScreen extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        datum.product.productName.isEmpty
-                                            ? Text("null")
-                                            : Text(
-                                                "${datum.product.productName}",
-                                                style: const TextStyle(
-                                                    color: Color.fromRGBO(
-                                                        20, 20, 20, 1),
-                                                    fontSize: 16,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              ),
-                                        const Icon(
-                                          Icons.favorite,
-                                          size: 15,
-                                          color: Colors.orange,
-                                        )
-                                      ],
+                                    Text(
+                                      fav.favoriteData[index]["product"]
+                                          ["sku_table"][0]["price"].toString(),
+                                      style: const TextStyle(
+                                          color: Color.fromRGBO(20, 20, 20, 1),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    // datum.product.productName.isEmpty
+                                    //     ? Text("null")
+                                    //     : Text(
+                                    //         "${datum.product.productName}",
+                                    //         style: const TextStyle(
+                                    //             color: Color.fromRGBO(
+                                    //                 20, 20, 20, 1),
+                                    //             fontSize: 16,
+                                    //             fontWeight:
+                                    //                 FontWeight.w500),
+                                    //       ),
+                                    const Icon(
+                                      Icons.favorite,
+                                      size: 15,
+                                      color: Colors.orange,
                                     ),
                                     const SizedBox(
                                       height: 5,
@@ -164,34 +180,35 @@ class FavoritesScreen extends StatelessWidget {
                                         )
                                       ],
                                     ),
-                                    const Row(
-                                      children: [
-                                        Text(
-                                            "Lorem Ipsum is simply dummy text of the ",
-                                            style: TextStyle(fontSize: 8))
-                                      ],
-                                    ),
-                                    const Row(
-                                      children: [
-                                        Text(
-                                          "printing and typesetting industry. Lorem ",
-                                          style: TextStyle(fontSize: 8),
-                                        )
-                                      ],
-                                    ),
-                                    const Row(
-                                      children: [
-                                        Text(
-                                            "Ipsum is simply dummy text of the printing",
-                                            style: TextStyle(fontSize: 8))
-                                      ],
-                                    ),
-                                    const Row(
-                                      children: [
-                                        Text("and typesetting industry.",
-                                            style: TextStyle(fontSize: 8))
-                                      ],
-                                    ),
+
+                                    // const Row(
+                                    //   children: [
+                                    //     Text(
+                                    //         "Lorem Ipsum is simply dummy text of the ",
+                                    //         style: TextStyle(fontSize: 8))
+                                    //   ],
+                                    // ),
+                                    // const Row(
+                                    //   children: [
+                                    //     Text(
+                                    //       "printing and typesetting industry. Lorem ",
+                                    //       style: TextStyle(fontSize: 8),
+                                    //     )
+                                    //   ],
+                                    // ),
+                                    // const Row(
+                                    //   children: [
+                                    //     Text(
+                                    //         "Ipsum is simply dummy text of the printing",
+                                    //         style: TextStyle(fontSize: 8))
+                                    //   ],
+                                    // ),
+                                    // const Row(
+                                    //   children: [
+                                    //     Text("and typesetting industry.",
+                                    //         style: TextStyle(fontSize: 8))
+                                    //   ],
+                                    // ),
                                     const SizedBox(
                                       height: 5,
                                     ),

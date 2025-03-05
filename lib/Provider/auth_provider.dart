@@ -49,7 +49,7 @@ class AuthProvider with ChangeNotifier {
     ApiService().get(Get.context!, 'auth/refresh').then((value) {
       authLoadingOff();
       if (value['status']) {
-         logger.w(accessToken);
+        //  logger.w(accessToken);
         saveData(value['access_token'], value['user']);
       } else {
         clearData();
@@ -118,7 +118,7 @@ class AuthProvider with ChangeNotifier {
   Future login(BuildContext context, String username, String otp) async {
     authLoadingOn();
     FocusScope.of(context).unfocus();
-
+    
     ApiService().get(context, "auth/login", params: {
       "username": username,
       "otp": otp,
@@ -144,34 +144,6 @@ class AuthProvider with ChangeNotifier {
       }
     });
   }
-
-  // Future registerCheck(BuildContext context, String name, String email,
-  //     String mobile, String pass, String username) async {
-  //   authLoadingOn();
-  //   ApiService().get(context, "auth/register_check", params: {
-  //     "username": name,
-  //     "email": email,
-  //     "mobile": mobile,
-  //     "password": pass
-  //   }).then((response) {
-  //     logger.e(response);
-  //     authLoadingOff();
-  //     if (response["status"]) {
-  //       notif("Success", response["message"]);
-  //       Navigator.push(
-  //           context,
-  //           MaterialPageRoute(
-  //               builder: (context) => OTPScreen(
-  //                   mobile: username,
-  //                   isLogin: true,
-  //                   name: '',
-  //                   email: '',
-  //                   pass: '')));
-  //     } else {
-  //       notif("Failed", response["message"]);
-  //     }
-  //   });
-  // }
 
   void saveData(String token, Map map) async {
     accessToken = token;

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 // import 'package:http/http.dart' as http;
 import 'package:http_interceptor/http_interceptor.dart';
 import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
+import 'package:toddle_bee_app/Provider/auth_provider.dart';
 import 'package:toddle_bee_app/Service/api_helper.dart';
 import 'package:toddle_bee_app/cofig/enums.dart';
 
@@ -15,6 +17,9 @@ class ApiService {
   Future setHeaders(BuildContext context, String url) async {
     headers.addAll({"appcode": ""});
     headers.addAll({"Accept": "application/json"});
+    String? token =
+        Provider.of<AuthProvider>(context, listen: false).accessToken;
+    headers.addAll({"Authorization": "Bearer $token"});
   }
 
   Future get(BuildContext context, String url, {params, cusUrl}) async {

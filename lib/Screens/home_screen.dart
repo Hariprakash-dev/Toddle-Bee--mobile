@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:toddle_bee_app/Colors/colors.dart';
 import 'package:toddle_bee_app/Model/userdatamodel.dart';
-import 'package:toddle_bee_app/Provider/favorite_provider.dart';
-import 'package:toddle_bee_app/Provider/favoriteshow_provider.dart';
 import 'package:toddle_bee_app/Provider/provider.dart';
 
 // final logger = Logger();
@@ -16,6 +14,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+   
+  }
+
   bool showall = false;
 
   @override
@@ -242,77 +246,115 @@ class _HomeScreenState extends State<HomeScreen> {
                         const SizedBox(
                           height: 15,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                Container(
-                                  height: 72,
-                                  width: 70,
-                                  color: const Color.fromRGBO(249, 249, 249, 1),
-                                  child: Image.asset(
-                                    "assets/Toys/image3.png",
-                                    height: 40,
-                                    width: 40,
+
+                      
+
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                children: [
+                                  Container(
+                                    height: 72,
+                                    width: 70,
+                                    color: const Color.fromRGBO(249, 249, 249, 1),
+                                    child: Image.asset(
+                                      "assets/Toys/image3.png",
+                                      height: 40,
+                                      width: 40,
+                                    ),
                                   ),
-                                ),
-                                const Text("Toys",
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color.fromRGBO(20, 20, 20, 1)))
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Container(
-                                  height: 72,
-                                  width: 70,
-                                  color: const Color.fromRGBO(249, 249, 249, 1),
-                                  child:
-                                      Image.asset("assets/Dresses/image6.png"),
-                                ),
-                                const Text("Boys Dress",
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color.fromRGBO(20, 20, 20, 1)))
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Container(
-                                  height: 72,
-                                  width: 70,
-                                  color: const Color.fromRGBO(249, 249, 249, 1),
-                                  child:
-                                      Image.asset("assets/Dresses/image7.png"),
-                                ),
-                                const Text("Girls Dress",
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color.fromRGBO(20, 20, 20, 1)))
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Container(
-                                  height: 72,
-                                  width: 70,
-                                  color: const Color.fromRGBO(249, 249, 249, 1),
-                                  child:
-                                      Image.asset("assets/footwear/image1.png"),
-                                ),
-                                const Text("Footwears",
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color.fromRGBO(20, 20, 20, 1)))
-                              ],
-                            )
-                          ],
+                                  const Text("Toys",
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: Color.fromRGBO(20, 20, 20, 1)))
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Container(
+                                    height: 72,
+                                    width: 70,
+                                    color: const Color.fromRGBO(249, 249, 249, 1),
+                                    child:
+                                        Image.asset("assets/Dresses/image6.png"),
+                                  ),
+                                  const Text("Boys Dress",
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: Color.fromRGBO(20, 20, 20, 1)))
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Container(
+                                    height: 72,
+                                    width: 70,
+                                    color: const Color.fromRGBO(249, 249, 249, 1),
+                                    child:
+                                        Image.asset("assets/Dresses/image7.png"),
+                                  ),
+                                  const Text("Girls Dress",
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: Color.fromRGBO(20, 20, 20, 1)))
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Container(
+                                    height: 72,
+                                    width: 70,
+                                    color: const Color.fromRGBO(249, 249, 249, 1),
+                                    child:
+                                        Image.asset("assets/footwear/image1.png"),
+                                  ),
+                                  const Text("Footwears",
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: Color.fromRGBO(20, 20, 20, 1)))
+                                ],
+                              ),
+                               Column(
+                                children: [
+                                  Container(
+                                    height: 72,
+                                    width: 70,
+                                    color: const Color.fromRGBO(249, 249, 249, 1),
+                                    child:
+                                        Image.asset("assets/footwear/image1.png"),
+                                  ),
+                                  const Text("Footwears",
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: Color.fromRGBO(20, 20, 20, 1)))
+                                ],
+                              ),
+                               Column(
+                                children: [
+                                  Container(
+                                    height: 72,
+                                    width: 70,
+                                    color: const Color.fromRGBO(249, 249, 249, 1),
+                                    child:
+                                        Image.asset("assets/footwear/image1.png"),
+                                  ),
+                                  const Text("Footwears",
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: Color.fromRGBO(20, 20, 20, 1)))
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(
                           height: 15,
@@ -393,52 +435,40 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       width: 100,
                                                     ),
                                                   ),
-                                                  Consumer<
-                                                      FavoriteshowProvider>(
-                                                    builder:
-                                                        (BuildContext context,
-                                                            favoriteProvider,
-                                                            child) {
-                                                      return Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(5.0),
-                                                        child: GestureDetector(
-                                                          onTap: () {
-                                                            favoriteProvider
-                                                                .favoritedata();
-                                                            // favoriteProvider
-                                                            //     .toggleFavorite(
-                                                            //         "${datum.id}");
-                                                          },
-                                                          child: Container(
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                              // color: favoriteProvider
-                                                              //         .isFavorite(
-                                                              //             index)
-                                                              //     ? Colors
-                                                              //         .orange
-                                                              //     : null,
-                                                            ),
-                                                            child:
-                                                                const Padding(
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .all(2.0),
-                                                              child: Icon(
-                                                                Icons
-                                                                    .favorite_border_sharp,
-                                                                color: Colors
-                                                                    .black,
-                                                              ),
-                                                            ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            5.0),
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        // favoriteProvider
+                                                        //     .toggleFavorite(
+                                                        //         "${datum.id}");
+                                                      },
+                                                      child: Container(
+                                                        decoration:
+                                                            const BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          // color: favoriteProvider
+                                                          //         .isFavorite(
+                                                          //             index)
+                                                          //     ? Colors
+                                                          //         .orange
+                                                          //     : null,
+                                                        ),
+                                                        child: const Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  2.0),
+                                                          child: Icon(
+                                                            Icons
+                                                                .favorite_border_sharp,
+                                                            color: Colors.black,
                                                           ),
                                                         ),
-                                                      );
-                                                    },
+                                                      ),
+                                                    ),
                                                   ),
                                                 ],
                                               ),

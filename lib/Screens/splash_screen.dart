@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:toddle_bee_app/Colors/colors.dart';
 import 'package:toddle_bee_app/Provider/all_provider.dart';
-import 'package:toddle_bee_app/Screens/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

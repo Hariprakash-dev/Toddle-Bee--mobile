@@ -84,6 +84,7 @@ class CategoryScreen extends StatelessWidget {
                     shrinkWrap: true,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
+                          childAspectRatio: 1000/1,
                             crossAxisCount: 2,
                             mainAxisExtent: 210,
                             mainAxisSpacing: 10,
